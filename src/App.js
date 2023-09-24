@@ -1,10 +1,10 @@
 import "./App.scss";
-import HackerNews from "./components/news/HackerNews";
+import HackerNewsWithReducer from "./components/news/HackerNewsWithReducer";
 
 function App() {
   return (
     <div>
-      <HackerNews></HackerNews>
+      <HackerNewsWithReducer></HackerNewsWithReducer>
     </div>
   );
 }
