@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useReducer } from "react";
 import axios from "axios";
 
 const initialState = {
@@ -10,35 +10,63 @@ const initialState = {
 };
 
 const hackerNewReducer = (state, action) => {
-  return state;
+  switch (action.type) {
+    case "SET_DATA": {
+      return { ...state, hits: action.payload };
+    }
+    case "SET_LOADING": {
+      return { ...state, loading: action.payload };
+    }
+    case "SET_ERROR": {
+      return { ...state, errorMasseage: action.payload };
+    }
+    case "SET_QUERY": {
+      return { ...state, query: action.payload };
+    }
+    case "SET_URL": {
+      return { ...state, url: action.payload };
+    }
+
+    default:
+      break;
+  }
 };
 
 //https://hn.algolia.com/api/v1/search?query=react
 const HackerNewsWithReducer = () => {
   const [state, dispatch] = React.useReducer(hackerNewReducer, initialState);
   const handleFetchData = useRef({});
-  // const [hits, setHits] = useState([]);
-  // const [query, setQuery] = useState("react");
-  // const [loading, setLoading] = useState(true);
-  // const [errorMessage, setErroMessage] = useState("");
-  // const [url, setUrl] = useState(
-  //   `https://hn.algolia.com/api/v1/search?query=''`
-  // );
+
   handleFetchData.current = async () => {
     // setLoading(true);
-    console.log("it is working !");
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    });
     try {
-      // const response = await axios.get(url);
-      // setHits(response.data?.hits || []);
-      // setLoading(false);
+      const response = await axios.get(state.url);
+      dispatch({
+        type: "SET_DATA",
+        payload: response.data?.hits || [],
+      });
+      dispatch({
+        type: "SET_LOADING",
+        payload: false,
+      });
     } catch (error) {
-      // setLoading(false);
-      // setErroMessage(`The error happend ${error}`);
+      dispatch({
+        type: "SET_LOADING",
+        payload: false,
+      });
+      dispatch({
+        type: "SET_ERROR",
+        payload: `The error happend ${error}`,
+      });
     }
   };
   React.useEffect(() => {
     handleFetchData.current();
-  }, []);
+  }, [state.url]);
   return (
     <div className="bg-white mx-auto mt-5 p-5 md:5 rounded-lg shadow-md w-2/4">
       <div className="flex mb-5 gap-x-5">
@@ -46,13 +74,25 @@ const HackerNewsWithReducer = () => {
           type="text"
           className="border border-gray-200 p-5 block w-full rounded-md transition-all focus:border-blue-400"
           defaultValue={state.query}
-          // onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) =>
+            dispatch({
+              type: "SET_QUERY",
+              payload: e.target.value,
+            })
+          }
         />
         <button
-          // onClick={() =>
-          //   setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)
-          // }
+          onClick={() =>
+            dispatch({
+              type: "SET_URL",
+              payload: `https://hn.algolia.com/api/v1/search?query=${state.query}`,
+            })
+          }
+          disabled={state.loading}
           className="bg-blue-500 text-white font-semibold p-5 rounded-md  flex-shrink-0"
+          style={{
+            opacity: state.loading ? "0.75" : "1",
+          }}
         >
           Fetching
         </button>
@@ -78,5 +118,4 @@ const HackerNewsWithReducer = () => {
     </div>
   );
 };
-
 export default HackerNewsWithReducer;
