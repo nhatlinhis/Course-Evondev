@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import "./App.scss";
-import Input from "./components/youtube/Input";
+import TextareaAutoResize from "./components/youtube/TextareaAutoResize";
 
 function App() {
   return (
     <div>
-      <Input></Input>
+      {/* <Input></Input> */}
+      <TextareaAutoResize></TextareaAutoResize>
     </div>
   );
 }
