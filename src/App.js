@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 import "./App.scss";
-import TextareaAutoResize from "./components/youtube/TextareaAutoResize";
+import Dropdown from "./components/youtube/Dropdown";
 
 function App() {
   return (
     <div>
-      {/* <Input></Input> */}
-      <TextareaAutoResize></TextareaAutoResize>
+      <div className="p-5">
+        <Dropdown></Dropdown>
+      </div>
     </div>
   );
 }
