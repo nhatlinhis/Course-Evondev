@@ -44,7 +44,7 @@ const HackerNews = () => {
           }
           className="bg-blue-500 text-white font-semibold p-5 rounded-md  flex-shrink-0"
         >
-          {/* Fetching */}
+          Fetching
         </button>
       </div>
       {loading && (
