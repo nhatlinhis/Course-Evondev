@@ -1,13 +1,11 @@
 import React, { useRef } from "react";
 import "./App.scss";
-import Dropdown from "./components/youtube/Dropdown";
+import Blog from "./components/youtube/Blog";
 
 function App() {
   return (
     <div>
-      <div className="p-5">
-        <Dropdown></Dropdown>
-      </div>
+      <Blog></Blog>
     </div>
   );
 }
