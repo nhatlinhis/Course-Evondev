@@ -1,11 +1,14 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import "./App.scss";
-import Blog from "./components/youtube/Blog";
+import HackerNews from "./components/news/HackerNews";
 
 function App() {
+  const [show, setShow] = useState(false);
   return (
     <div>
-      <Blog></Blog>
+      <button onClick={() => setShow(!show)}>Toggle button</button>
+      {/* {show && <HackerNews></HackerNews>} */}
+      {show ? <HackerNews></HackerNews> : null}
     </div>
   );
 }

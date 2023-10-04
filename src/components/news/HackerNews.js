@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { flatMap } from "lodash";
 // import lodash from "lodash";
 
 //https://hn.algolia.com/api/v1/search?query=react
@@ -12,12 +13,26 @@ const HackerNews = () => {
   const [url, setUrl] = useState(
     `https://hn.algolia.com/api/v1/search?query=''`
   );
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    //
+    return () => {
+      // unmounted component
+      isMounted.current = false;
+    };
+  }, []);
+
   handleFetchData.current = async () => {
     setLoading(true);
     try {
       const response = await axios.get(url);
-      setHits(response.data?.hits || []);
-      setLoading(false);
+      setTimeout(() => {
+        if (isMounted.current) {
+          setHits(response.data?.hits || []);
+          setLoading(false);
+        }
+      }, 3000);
     } catch (error) {
       setLoading(false);
       setErroMessage(`The error happend ${error}`);
