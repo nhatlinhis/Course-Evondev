@@ -1,13 +1,8 @@
-import React, { useEffect, useRef } from "react";
+// import React, { useEffect, useRef } from "react";
+import useLinkNewTab from "../../hook/useLinkNewTab";
 
 const Blog = () => {
-  const contentref = useRef(null);
-  useEffect(() => {
-    if (contentref) {
-      const links = contentref.current.querySelectorAll("a");
-      console.log("useEffect ~", links);
-    }
-  });
+  const { contentRef } = useLinkNewTab();
 
   return (
     <div className="entry-content">
@@ -29,10 +24,10 @@ const Blog = () => {
       </p>
       <p className="mb-5">
         Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
+        industry.{" "}
         <a href="https://google.com" className="underline">
           Google.com
-        </a>
+        </a>{" "}
         It has survived not only five centuries, but also the leap into
         electronic typesetting, remaining essentially unchanged.
       </p>
