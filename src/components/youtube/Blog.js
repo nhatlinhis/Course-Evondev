@@ -18,7 +18,7 @@ const Blog = () => {
       <p className="mb-5">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry.
-        <a href="https://google.com" className="underline">
+        <a href="https://google.com" className="underline text-red-400">
           Google.com
         </a>
       </p>
