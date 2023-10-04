@@ -1,11 +1,12 @@
-// import React, { useEffect, useRef } from "react";
+import useHover from "../../hook/useHover";
 import useLinkNewTab from "../../hook/useLinkNewTab";
 
 const Blog = () => {
   const { contentRef } = useLinkNewTab();
+  const { hovered, nodeRef } = useHover();
 
   return (
-    <div className="entry-content">
+    <div className="entry-content" ref={contentRef}>
       <p className="mb-5">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -18,7 +19,11 @@ const Blog = () => {
       <p className="mb-5">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry.
-        <a href="https://google.com" className="underline text-red-400">
+        <a
+          href="https://google.com"
+          className={`underline ${hovered ? "text-green-400" : ""}`}
+          ref={nodeRef}
+        >
           Google.com
         </a>
       </p>
