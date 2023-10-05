@@ -1,10 +1,44 @@
 import React, { useEffect, useRef, useState } from "react";
-import useHackerNewsAPI from "../../hook/useHackerNewsApi";
+import axios from "axios";
 
-const HackerNews = () => {
-  const { query, setQuery, setUrl, loading, errorMessage, hits } =
-    useHackerNewsAPI();
+const HackerNewsWidthHook = () => {
+  const [hits, setHits] = useState([]);
+  const [query, setQuery] = useState("react");
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErroMessage] = useState("");
+  const handleFetchData = useRef({});
+  const [url, setUrl] = useState(
+    `https://hn.algolia.com/api/v1/search?query=''`
+  );
+  const isMounted = useRef(true);
 
+  useEffect(() => {
+    //
+    return () => {
+      // unmounted component
+      isMounted.current = false;
+    };
+  }, []);
+
+  handleFetchData.current = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(url);
+      if (isMounted.current) {
+        setHits(response.data?.hits || []);
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      setErroMessage(`The error happend ${error}`);
+    }
+  };
+  // const handleUpdateQuery = lodash.debounce((e) => {
+  //   setQuery(e.target.value);
+  // }, 500);
+  React.useEffect(() => {
+    handleFetchData.current();
+  }, [url]);
   return (
     <div className="bg-white mx-auto mt-5 p-5 md:5 rounded-lg shadow-md w-2/4">
       <div className="flex mb-5 gap-x-5">
@@ -45,4 +79,4 @@ const HackerNews = () => {
   );
 };
 
-export default HackerNews;
+export default HackerNewsWidthHook;
