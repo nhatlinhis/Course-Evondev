@@ -1,44 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import useHackerNewsAPI from "../../hook/useHackerNewsAPI";
 
 const HackerNewsWidthHook = () => {
-  const [hits, setHits] = useState([]);
-  const [query, setQuery] = useState("react");
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErroMessage] = useState("");
-  const handleFetchData = useRef({});
-  const [url, setUrl] = useState(
-    `https://hn.algolia.com/api/v1/search?query=''`
+  const [query, setQuery] = useState("");
+  const { loading, errorMessage, setUrl, data } = useHackerNewsAPI(
+    `https://hn.algolia.com/api/v1/search?query=''`,
+    { hits: [] }
   );
-  const isMounted = useRef(true);
 
-  useEffect(() => {
-    //
-    return () => {
-      // unmounted component
-      isMounted.current = false;
-    };
-  }, []);
-
-  handleFetchData.current = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(url);
-      if (isMounted.current) {
-        setHits(response.data?.hits || []);
-        setLoading(false);
-      }
-    } catch (error) {
-      setLoading(false);
-      setErroMessage(`The error happend ${error}`);
-    }
-  };
-  // const handleUpdateQuery = lodash.debounce((e) => {
-  //   setQuery(e.target.value);
-  // }, 500);
-  React.useEffect(() => {
-    handleFetchData.current();
-  }, [url]);
   return (
     <div className="bg-white mx-auto mt-5 p-5 md:5 rounded-lg shadow-md w-2/4">
       <div className="flex mb-5 gap-x-5">
@@ -65,8 +34,8 @@ const HackerNewsWidthHook = () => {
       )}
       <div className="flex flex-wrap gap-5">
         {!loading &&
-          hits.length > 0 &&
-          hits.map((item, index) => {
+          data.hits.length > 0 &&
+          data.hits.map((item, index) => {
             if (!item.title || item.title.length <= 0) return null;
             return (
               <h3 key={item.title} className="p-3 bg-gray-100 rounded-md">
