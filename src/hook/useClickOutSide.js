@@ -10,7 +10,6 @@ export default function useClickOutSide(dom = "button") {
         !nodeRef.current.contains(e.target) &&
         !e.target.matches(dom)
       ) {
-        // console.log("Click outside dropdown");
         setShow(false);
       }
     }
