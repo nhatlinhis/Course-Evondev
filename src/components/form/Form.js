@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Form = () => {
   // const [fullname, setFullName] = useState("");
@@ -17,6 +17,19 @@ const Form = () => {
   //   console.log(event.target.value);
   //   setCountry(event.target.value);
   // };
+  const [values, setValues] = useState({
+    fullname: "",
+    email: "",
+  });
+  console.log("values ~", values);
+  const handleInputChange = (e) => {
+    console.log(e.target.value);
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+      // [e.target.email]: e.target.value,
+    });
+  };
 
   return (
     <div className="p-5">
@@ -26,14 +39,14 @@ const Form = () => {
           name="fullname"
           className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
           placeholder="Enter your name"
-          // onChange={handleInputChange}
+          onChange={handleInputChange}
         />
         <input
           type="email"
           name="email"
           className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
-          placeholder="Enter your email"
-          // onChange={handleInputChange}
+          placeholder="Enter your email adress"
+          onChange={handleInputChange}
         />
       </div>
       {/* {fullname}  */}
