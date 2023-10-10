@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import useHandleChange from "../../hook/useHandleChange";
 
-const Form = () => {
+const Form2 = () => {
   // const [fullname, setFullName] = useState("");
   // const [message, setMassage] = useState("");
   // const [country, setCountry] = useState("");
@@ -17,34 +18,40 @@ const Form = () => {
   //   console.log(event.target.value);
   //   setCountry(event.target.value);
   // };
-  const [values, setValues] = useState({
+  // const [values, setValues] = useState({
+  //   fullname: "",
+  //   email: "",
+  //   chobby: false,
+  // });
+  // console.log("values ~", values);
+  // const handleInputChange = (e) => {
+  //   const type = e.target.type;
+  //   // c1
+  //   setValues({
+  //     ...values,
+  //     [e.target.name]: type === "checkbox" ? e.target.checked : e.target.value,
+  //   });
+
+  // c2
+  // if (type === "checkbox") {
+  //   setValues({
+  //     ...values,
+  //     [e.target.name]: e.target.checked,
+  //   });
+  // } else {
+  //   setValues({
+  //     ...values,
+  //     [e.target.name]: e.target.value,
+  //     // [e.target.email]: e.target.value,
+  //   });
+  // }
+  // };
+  const { values, handleChange } = useHandleChange({
     fullname: "",
     email: "",
     chobby: false,
   });
-  // console.log("values ~", values);
-  const handleInputChange = (e) => {
-    const type = e.target.type;
-    // c1
-    setValues({
-      ...values,
-      [e.target.name]: type === "checkbox" ? e.target.checked : e.target.value,
-    });
-
-    // c2
-    // if (type === "checkbox") {
-    //   setValues({
-    //     ...values,
-    //     [e.target.name]: e.target.checked,
-    //   });
-    // } else {
-    //   setValues({
-    //     ...values,
-    //     [e.target.name]: e.target.value,
-    //     // [e.target.email]: e.target.value,
-    //   });
-    // }
-  };
+  console.log("Form ~ values", values);
 
   return (
     <div className="p-5">
@@ -54,16 +61,16 @@ const Form = () => {
           name="fullname"
           className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
           placeholder="Enter your name"
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
         <input
           type="email"
           name="email"
           className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
           placeholder="Enter your email adress"
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
-        <input type="checkbox" name="hobby" onChange={handleInputChange} />
+        <input type="checkbox" name="hobby" onChange={handleChange} />
       </div>
       {/* {fullname}  */}
 
@@ -88,4 +95,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Form2;

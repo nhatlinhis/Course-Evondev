@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.scss";
-import Form from "./components/form/Form";
+import Form2 from "./components/form/Form2";
 
 const App = () => {
   return (
     <div>
-      <Form></Form>
+      <Form2></Form2>
     </div>
   );
 };
