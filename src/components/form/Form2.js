@@ -7,18 +7,34 @@ const Form2 = () => {
     email: "",
     chobby: false,
   });
-  console.log("Form ~ values", values);
+  const [nameError, setNameError] = useState("");
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    if (values.fullname === "") {
+      setNameError("your fullname is empty !");
+    } else {
+      setNameError("");
+    }
+  };
+  // console.log("Form ~ values", values);
 
   return (
     <div className="p-5">
-      <form className="flex gap-x-3" autoComplete="off">
-        <input
-          type="text"
-          name="fullname"
-          className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
-          placeholder="Enter your name"
-          onChange={handleChange}
-        />
+      <form
+        className="flex gap-x-3"
+        autoComplete="off"
+        onSubmit={handleSubmitForm}
+      >
+        <div className="flex flex-col gap-y-3">
+          <input
+            type="text"
+            name="fullname"
+            className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
+            placeholder="Enter your name"
+            onChange={handleChange}
+          />
+          {nameError}
+        </div>
         <input
           type="email"
           name="email"
