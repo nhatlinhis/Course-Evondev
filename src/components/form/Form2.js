@@ -2,50 +2,6 @@ import React, { useState } from "react";
 import useHandleChange from "../../hook/useHandleChange";
 
 const Form2 = () => {
-  // const [fullname, setFullName] = useState("");
-  // const [message, setMassage] = useState("");
-  // const [country, setCountry] = useState("");
-
-  // const handleInputChange = (event) => {
-  //   console.log(event.target.value);
-  //   setFullName(event.target.value);
-  // };
-  // const handleTextareaChange = (event) => {
-  //   console.log(event.target.value);
-  //   setMassage(event.target.value);
-  // };
-  // const handleSelectChange = (event) => {
-  //   console.log(event.target.value);
-  //   setCountry(event.target.value);
-  // };
-  // const [values, setValues] = useState({
-  //   fullname: "",
-  //   email: "",
-  //   chobby: false,
-  // });
-  // console.log("values ~", values);
-  // const handleInputChange = (e) => {
-  //   const type = e.target.type;
-  //   // c1
-  //   setValues({
-  //     ...values,
-  //     [e.target.name]: type === "checkbox" ? e.target.checked : e.target.value,
-  //   });
-
-  // c2
-  // if (type === "checkbox") {
-  //   setValues({
-  //     ...values,
-  //     [e.target.name]: e.target.checked,
-  //   });
-  // } else {
-  //   setValues({
-  //     ...values,
-  //     [e.target.name]: e.target.value,
-  //     // [e.target.email]: e.target.value,
-  //   });
-  // }
-  // };
   const { values, handleChange } = useHandleChange({
     fullname: "",
     email: "",
@@ -55,7 +11,7 @@ const Form2 = () => {
 
   return (
     <div className="p-5">
-      <div className="flex gap-x-3">
+      <form className="flex gap-x-3" autoComplete="off">
         <input
           type="text"
           name="fullname"
@@ -70,27 +26,14 @@ const Form2 = () => {
           placeholder="Enter your email adress"
           onChange={handleChange}
         />
-        <input type="checkbox" name="hobby" onChange={handleChange} />
-      </div>
-      {/* {fullname}  */}
-
-      {/* <textarea
-        name="message"
-        // id=""
-        // cols="30"
-        // rows="10"
-        className="w-full max-w-[300px] p-5 border border-gray-200 rounded-lg"
-        placeholder="Enter your message"
-        onChange={handleTextareaChange}
-      ></textarea>
-      {message}
-
-      <select name="country" onChange={handleSelectChange}>
-        <option value="Vietnam">VN</option>
-        <option value="USA">USA</option>
-        <option value="Japan">Japan</option>
-      </select>
-      {country} */}
+        {/* <input type="checkbox" name="hobby" onChange={handleChange} /> */}
+        <button
+          type="submit"
+          className="p-5 bg-blue-600 text-white rounded-lg hover:bg-[#eee] hover:text-blue-400"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 };
