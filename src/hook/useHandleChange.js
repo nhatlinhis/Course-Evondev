@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function useHandleChange(initialValues) {
   const [values, setValues] = useState(initialValues);
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const type = e.target.type;
     // c1
     setValues({
@@ -12,6 +12,6 @@ export default function useHandleChange(initialValues) {
   };
   return {
     values,
-    // handleChange,
+    handleChange,
   };
 }
