@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div>
       <MovieSearchApp></MovieSearchApp>
-    </div>
+    </div>   
   );
 };
 
